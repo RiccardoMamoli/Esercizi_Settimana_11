@@ -1,11 +1,11 @@
 import { Container, Col, Row, Button } from 'react-bootstrap'
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Job from './Job';
 
 
 
-function Favorites({ favourites }) {
+function Favorites() {
     const navigate = useNavigate();
     const arrayOfLikes = useSelector((store) => store.favourites.content)
 
@@ -23,13 +23,17 @@ function Favorites({ favourites }) {
                         <Button onClick={handleClick}> Homepage </Button>
                     </Col>
                     <Col xs={10} className="mx-auto">
-                        {
-                            arrayOfLikes.map((fav) => (
 
-                                <Job key={fav._id} data={fav} />
+                        {arrayOfLikes.length === 0 ? (<p className='fw-5 fs-1 mt-2'> It's a bit empty here.</p>) :
 
-                            ))
-                        }
+                            (
+                                arrayOfLikes.map((fav) => (
+
+                                    <Job key={fav._id} data={fav} />
+
+                                ))
+
+                            )}
 
                     </Col>
                 </Row>

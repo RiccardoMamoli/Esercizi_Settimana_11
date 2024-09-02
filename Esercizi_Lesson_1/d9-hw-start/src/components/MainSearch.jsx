@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Badge} from "react-bootstrap";
 import Job from "./Job";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 const MainSearch = () => {
 
@@ -9,6 +10,7 @@ const MainSearch = () => {
   const [query, setQuery] = useState("");
   const [jobs, setJobs] = useState([]);
   const navigate = useNavigate()
+  const selector = useSelector((store) => store.favourites.content);
 
   function handleClick() {
     navigate('/favorites')
@@ -42,7 +44,7 @@ const MainSearch = () => {
       <Row>
         <Col xs={10} className="mx-auto my-3">
           <h1 className="display-1">Remote Jobs Search</h1>
-          <Button onClick={handleClick}> Favorites </Button>
+          <Button onClick={handleClick}> Favorites <Badge bg="secondary"> {selector.length}</Badge> </Button>
         </Col>
         <Col xs={10} className="mx-auto">
           <Form onSubmit={handleSubmit}>

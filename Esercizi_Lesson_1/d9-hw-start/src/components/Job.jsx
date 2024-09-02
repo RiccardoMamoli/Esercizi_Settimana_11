@@ -1,14 +1,15 @@
-import { useState } from 'react'
+
 import { Row, Col } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 
 const Job = ({ data }) => {
 
-  const [isFavorite, setIsFavorite] = useState(false);
 
   const dispatch = useDispatch();
+  const selector = useSelector((store) => store.favourites.content);
+  const isFav = selector.find((fav) => fav.company_name === data.company_name)
 
   return (
     <>
@@ -20,11 +21,11 @@ const Job = ({ data }) => {
         <Col xs={3} className='d-flex align-items-center'>
           <i
             className="bi bi-heart-fill me-3"
-            style={{ color: isFavorite ? 'red' : '' }}
+            style={{ color: isFav ? 'red' : '' }}
             onClick={() => {
-              setIsFavorite(!isFavorite);
+              
 
-              isFavorite
+              isFav
                 ? dispatch({
                   type: 'REMOVE_FROM_FAVORITE',
                   payload: data

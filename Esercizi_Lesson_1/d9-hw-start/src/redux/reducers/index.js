@@ -1,7 +1,6 @@
 const initialState = {
     favourites: {
         content: [],
-        isFavorited: 'false'
     }
 }
 
@@ -27,7 +26,7 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 favourites: {
                     ...state.favourites,
-                    content: state.favourites.content.filter(item => item.id !== action.payload.id)
+                    content: state.favourites.content.filter((item) => item._id !== action.payload._id)
                 }
             };
         }
