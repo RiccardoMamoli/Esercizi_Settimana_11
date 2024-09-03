@@ -37,7 +37,7 @@ const CompanySearchResults = () => {
     <Container>
       <Row>
         <Col className="my-3">
-          <h1 className="display-4">Job posting for: {params.company}</h1>
+          <h1 className="display-1 text-light">Job posting for: {params.company}</h1>
           <Button onClick={handleClick}> Homepage </Button>
           {jobs.map(jobData => (
             <Job key={jobData._id} data={jobData} />

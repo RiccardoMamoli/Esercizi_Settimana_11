@@ -19,12 +19,12 @@ function Favorites() {
             <Container>
                 <Row>
                     <Col xs={10} className="mx-auto my-3">
-                        <h1 className="display-1"> Favorites </h1>
-                        <Button onClick={handleClick}> Homepage </Button>
+                        <h1 className="display-1 text-light"> Favorites </h1>
+                        <Button className="custom-button" onClick={handleClick}> Homepage </Button>
                     </Col>
                     <Col xs={10} className="mx-auto">
 
-                        {arrayOfLikes.length === 0 ? (<p className='fw-5 fs-1 mt-2'> It's a bit empty here.</p>) :
+                        {arrayOfLikes.length === 0 ? (<p className='fw-5 fs-1 mt-2 text-light'> It's a bit empty here.</p>) :
 
                             (
                                 arrayOfLikes.map((fav) => (

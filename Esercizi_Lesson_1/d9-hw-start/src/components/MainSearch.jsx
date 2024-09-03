@@ -2,49 +2,42 @@ import { useState } from "react";
 import { Container, Row, Col, Form, Button, Badge} from "react-bootstrap";
 import Job from "./Job";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getListAction } from "../redux/actions";
+
 
 const MainSearch = () => {
 
 
   const [query, setQuery] = useState("");
-  const [jobs, setJobs] = useState([]);
+  // const [jobs, setJobs] = useState([]);
   const navigate = useNavigate()
-  const selector = useSelector((store) => store.favourites.content);
+  const list = useSelector((store) => store.list.arrayFav);
+  const fav = useSelector((store) => store.favourites.content)
+  const dispatch = useDispatch();
 
   function handleClick() {
     navigate('/favorites')
   }
 
-  const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search=";
+  // const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search=";
   
 
   const handleChange = e => {
     setQuery(e.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(baseEndpoint + query + "&limit=20");
-      if (response.ok) {
-        const { data } = await response.json();
-        setJobs(data);
-      } else {
-        alert("Error fetching results");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(getListAction(query));
   };
 
   return (
     <Container>
       <Row>
         <Col xs={10} className="mx-auto my-3">
-          <h1 className="display-1">Remote Jobs Search</h1>
-          <Button onClick={handleClick}> Favorites <Badge bg="secondary"> {selector.length}</Badge> </Button>
+          <h1 className="display-1 text-light">Remote Jobs Search</h1>
+          <Button onClick={handleClick} className="custom-button"> Favorites <Badge className="custom-badge"> {fav.length}</Badge> </Button>
         </Col>
         <Col xs={10} className="mx-auto">
           <Form onSubmit={handleSubmit}>
@@ -52,8 +45,8 @@ const MainSearch = () => {
           </Form>
         </Col>
         <Col xs={10} className="mx-auto mb-5">
-          {jobs.map(jobData => (
-            <Job key={jobData._id} data={jobData} />
+          {list.map(job => (
+            <Job key={job._id} data={job} />
           ))}
         </Col>
       </Row>
