@@ -1,6 +1,7 @@
 import { Col, Row, Button } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
+import { removeFromCartAction } from '../redux/actions'
 
 // se la prop "cart" non arriva, invece di assumere il valore "undefined" diventa []
 // = [] è il valore di default
@@ -8,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const Cart = ({ cart = [] }) => {
   const arrayOfBooks = useSelector((store) => store.cart.content)
   const dispatch = useDispatch()
+
   return (
     <>
       <Row>
@@ -16,10 +18,7 @@ const Cart = ({ cart = [] }) => {
             {arrayOfBooks.map((book, i) => (
               <li key={i} className="my-4">
                 <Button variant="danger" onClick={() => {
-                  dispatch({
-                    type: 'REMOVE_FROM_CARD',
-                    payload: i,
-                  })
+                  dispatch(removeFromCartAction(i))
                 }}>
                   <FaTrash />
                 </Button>

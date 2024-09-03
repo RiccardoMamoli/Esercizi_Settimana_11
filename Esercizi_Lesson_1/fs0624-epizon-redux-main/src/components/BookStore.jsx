@@ -2,14 +2,20 @@ import { useState, useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import BookList from './BookList'
 import BookDetail from './BookDetail'
+import { useDispatch, useSelector } from 'react-redux'
+import { getBookAction } from '../redux/actions'
 
 const BookStore = () => {
   const [books, setBooks] = useState([])
   const [bookSelected, setBookSelected] = useState(null)
+  const dispatch = useDispatch()
+  const book = useSelector ((store) => store.book.avaiable)
 
   // componentDidMount
   useEffect(() => {
-    getBooks()
+    // getBooks()
+    dispatch(getBookAction())
+
   }, [])
 
   const getBooksThenCatch = () => {

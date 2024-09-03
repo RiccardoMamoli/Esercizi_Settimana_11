@@ -5,25 +5,45 @@ import CartIndicator from './components/CartIndicator'
 import BookStore from './components/BookStore'
 import Cart from './components/Cart'
 import Footer from './components/Footer'
+import { useSelector } from 'react-redux'
 
-const App = () => (
-  <BrowserRouter>
-    <Container className="epizon-container">
-      <Row>
-        <Col className="text-center background-div">
-          <Link to="/">
-            <h1>Epizon Book Store</h1>
-          </Link>
-        </Col>
-        <CartIndicator />
-      </Row>
-      <Routes>
-        <Route path="/" element={<BookStore />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-      <Footer />
-    </Container>
-  </BrowserRouter>
+const App = () => {
+
+  const username = useSelector(store => {
+    return store.user.name
+  });
+
+  return(
+  <>
+    <BrowserRouter>
+      <Container className="epizon-container">
+        <Row>
+          <Col className="text-center background-div">
+            <Link to="/">
+              <h1>Epizon Book Store</h1>
+            </Link>
+            <div>
+
+              {
+
+                username !== '' ? (  <p> Ciao, <b> {username}! </b></p>) : ('')
+
+              }
+            </div>
+          </Col>
+          <CartIndicator />
+        </Row>
+        <Routes>
+          <Route path="/" element={<BookStore />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+        <Footer />
+      </Container>
+    </BrowserRouter>
+
+
+  </>
 )
+}
 
 export default App

@@ -1,11 +1,17 @@
 import { Col, Row, Button } from 'react-bootstrap'
 import { FaShoppingCart } from 'react-icons/fa'
-// colleghiamo BookDetail al redux
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCartAction } from '../redux/actions'
+
+
+
 
 const BookDetail = ({ bookSelected }) => {
 
   const dispatch = useDispatch();
+  const username = useSelector(store => {
+    return store.user.name
+  });
 
   return (
     <div className="mt-3 mb-4 mb-lg-0">
@@ -35,16 +41,21 @@ const BookDetail = ({ bookSelected }) => {
                 <span className="fw-bold">Price:</span>&nbsp;
                 {bookSelected.price}$
               </p>
-              <Button className="d-flex align-items-center" onClick={() => {
-                dispatch({
-                  type: 'ADD_TO_CART',
-                  payload: bookSelected
 
-                })
-              }}>
-                <span className="me-2">AGGIUNGI AL</span>
-                <FaShoppingCart />
-              </Button>
+              {
+
+                username !== '' ? (<Button className="d-flex align-items-center" onClick={() => {
+                  dispatch(addToCartAction(bookSelected));
+                }}>
+                  <span className="me-2">AGGIUNGI AL</span>
+                  <FaShoppingCart />
+                </Button>) : (
+
+                  <Button> Fai Login Per Acquistare </Button>
+                )
+
+
+              }
             </Col>
           </Row>
         </>
