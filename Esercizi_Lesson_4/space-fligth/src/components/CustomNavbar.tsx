@@ -10,7 +10,7 @@ const CustomNavbar = () => {
 
     return (
         <>
-            <Navbar bg="dark" data-bs-theme="dark">
+            <Navbar>
                 <Container fluid>
                     <Navbar.Brand>
                         <Link to="/" className='text-decoration-none text-light'>space facts</Link>
